@@ -1,0 +1,65 @@
+Option Explicit
+
+Sub aatally()
+
+Dim ticker As String 'Ticker variabe
+Dim total As Double 'Volume adding variable
+Dim i As Integer 'Cell looping variabe
+Dim x As Integer 'Worksheet looping variable
+Dim count As Integer 'number of worksheets
+Dim out As Integer 'where to output totals
+Dim t As Integer 'lastrow
+Dim shtExist As Boolean
+
+count = ActiveWorkbook.Worksheets.count 'We will loop through all the worksheets
+
+'Have we made a new sheet for the totals?
+With ActiveWorkbook
+    shtExist = False
+    
+    For x = 1 To count
+        If Worksheets(x).Name = "Tally" Then
+        shtExist = True
+        End If
+    Next x
+
+    If shtExist = False Then
+        Sheets.Add After:=Worksheets(count)
+        Sheets(Worksheets.count).Name = "Tally"
+    End If
+
+End With
+
+out = 1
+
+With ActiveWorkbook
+
+For x = 1 To count - 1 'Looping through all the worksheets with x, but ignoring the Tally sheet
+
+    Worksheets(x).Activate
+    ticker = Cells(1, 1).Value 'Set the default value to the first cell in column A
+    total = 0 'Set the default tally to zero
+
+    With ActiveSheet
+        'Find the last row of data
+        t = Worksheets(x).UsedRange.Rows.count
+
+    For i = 1 To t + 1 'Looping through the first column of data, making sure to capture the last row
+
+        If Cells(i, 1).Value = ticker Then
+            total = total + Cells(i, 2).Value
+        
+        Else
+            Sheets("Tally").Cells(out, 1).Value = ticker 'Put the ticker name in
+            Sheets("Tally").Cells(out, 2).Value = total   'Put the total for the first ticker in
+            ticker = Cells(i, 1).Value  'Now reset the ticker variable to the new value
+            total = 0                           'Now reset the total to zero to start adding again
+            out = out + 1
+        End If
+        
+    Next i
+    
+    End With
+Next x
+End With
+End Sub
