@@ -1,1 +1,0 @@
-{"1": "new", "2": "best", "3": "friend", "4": "script"}

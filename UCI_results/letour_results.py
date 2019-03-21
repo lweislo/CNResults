@@ -122,7 +122,7 @@ def start():
         get_urls(all_links)
 
 try:
-    start_url = 'https://www.letour.fr/en/rankings/stage-18' #input("Enter the results URL: ")
+    start_url = 'https://www.paris-nice.fr/en/rankings/stage-2' #input("Enter the results URL: ")
     base_url = start_url.split('/')[2]
     outfile = (start_url.split('www.')[1].split('.')[0] + '_'+ start_url.split('/')[-1] + '.csv')
 
