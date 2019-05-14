@@ -1,6 +1,6 @@
 lxml==4.3.3
 pandas==0.24.2
-requests==2.19.1
+requests>=2.20.1
 requests-oauthlib==1.2.0
 splinter==0.10.0
 beautifulsoup4==4.4.1
